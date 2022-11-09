@@ -4,10 +4,11 @@
 
 services:
   vote:
-    build: ./vote
+    image: manuelbobadilla/appvotacion_vote:latest
     # use python rather than gunicorn for local dev
     command: python app.py
     depends_on:
+      #- redis
       redis:
         condition: service_healthy 
     volumes:
@@ -19,10 +20,11 @@ services:
       - back-tier
 
   result:
-    build: ./result
+    image: manuelbobadilla/appvotacion_result:latest
     # use nodemon rather than node for local dev
     command: nodemon server.js
     depends_on:
+      #- db
       db:
         condition: service_healthy 
     volumes:
@@ -35,9 +37,10 @@ services:
       - back-tier
 
   worker:
-    build:
-      context: ./worker
+    image: manuelbobadilla/appvotacion_worker:latest
     depends_on:
+      #- redis
+      #- db
       redis:
         condition: service_healthy 
       db:

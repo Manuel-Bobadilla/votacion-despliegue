@@ -4,7 +4,8 @@
 
 services:
   vote:
-    image: manuelbobadilla/appvotacion_vote:latest
+    build: ./vote
+    #image: manuelbobadilla/appvotacion_vote:latest
     # use python rather than gunicorn for local dev
     command: python app.py
     depends_on:
@@ -20,7 +21,8 @@ services:
       - back-tier
 
   result:
-    image: manuelbobadilla/appvotacion_result:latest
+    build: ./result
+    #image: manuelbobadilla/appvotacion_result:latest
     # use nodemon rather than node for local dev
     command: nodemon server.js
     depends_on:
@@ -37,7 +39,8 @@ services:
       - back-tier
 
   worker:
-    image: manuelbobadilla/appvotacion_worker:latest
+    build: ./worker
+    #image: manuelbobadilla/appvotacion_worker:latest
     depends_on:
       #- redis
       #- db
